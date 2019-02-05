@@ -8,12 +8,13 @@ function main(event){
 	var i = 2;
 	for (i ; i >0 ; i--){
 		var rect = randRect();
+		var rects = hitTest(r1,r2);
 		rects.push(rect);
 		factory("div", rect.x, rect.y, rect.w, rect.h);
 	}
 
 	console.log(rect);
-
+	console.log(hasCollision(hitTest));
 }
 	
 	//console.log(hitTestAll(rect));
@@ -36,29 +37,25 @@ function hitTest(r1, r2) { // hit test box
 
 
 
-function hasCollision(rects){
+function hasCollision(rects, newRect) {
 
-	
-     
-	hasLeftCollision = r1.x + r1.w >= r2.x;
-	hasTopCollision = r1.x <= r2.x + r2.w;
-	hasWidthCollision = r1.y + r1.h >= r2.y;
-	hasHeightCollision = r1.y <= r2.y + r2.h;
-	hasCollision = hasLeftCollision && hasTopCollision && hasWidthCollision && hasHeightCollision ;
- 
-if (hasCollison) {
-  console.log({
-    hasLeftCollision,
-    hasTopCollision,
-    hasWidthCollision ,
-    hasHeightCollision,
-  })
-} else {
-  console.log('no collisions')
+  r2 = newRect;
+
+    for(var i; i < rects.length; i++) {
+      r1 = rects[i];
+      hasLeftCollision = r1.x + r1.w >= r2.x;
+      hasTopCollision = r1.x <= r2.x + r2.w;
+      hasWidthCollision = r1.y + r1.h >= r2.y;
+      hasHeightCollision = r1.y <= r2.y + r2.h;
+
+      if(hasLeftCollision && hasTopCollision && hasWidthCollision && hasHeightCollision) {
+        return true;
+      }
+    }
+
+    return false;
+
 }
-}
-
-
 
 
 
